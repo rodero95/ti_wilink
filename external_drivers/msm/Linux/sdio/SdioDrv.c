@@ -102,9 +102,9 @@ struct tisdio_platform_data ti_sdio_dev_data =
     sdioDrv_WriteDirectBytes,
 };
 
-static int tisdio_dev_release(void)
+static void tisdio_dev_release(struct device *dev)
 {
-	return 0;
+	return;
 }
 
 static struct platform_device tisdio_dev = {
@@ -452,7 +452,7 @@ int sdioDrv_set_clock(unsigned int clock)
 	mmc = mmc_get_drvdata(g_drv.pdev);
 	mmc->index = TIWLAN_MMC_CONTROLLER;
 
-	printk(KERN_INFO "[ %s ] Settin clock %lu Hz\n", __func__, clock);
+	printk(KERN_INFO "[ %s ] Settin clock %u Hz\n", __func__, clock);
 	memset(&ios, 0, sizeof(struct mmc_ios));
 	ios.bus_width = TIWLAN_SDIO_BUSWIDE;
 	ios.power_mode = MMC_POWER_ON;
@@ -530,7 +530,6 @@ static int sdioDrv_remove(struct platform_device *pdev)
 
 static int sdioDrv_suspend(struct platform_device *pdev, pm_message_t state)
 {
-	int rc = 0;
 
 	// printk(KERN_INFO "TISDIO: Asking TIWLAN to suspend\n");
 

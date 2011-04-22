@@ -1421,7 +1421,7 @@ int msmsdcc_probe(struct platform_device *pdev)
 	if (ret)
 		goto stat_irq_free;
 
-	ret = request_irq(pio_irqres->start, msmsdcc_pio_irq, IRQF_SHARED,
+	ret = request_irq(pio_irqres->start, (irq_handler_t) msmsdcc_pio_irq, IRQF_SHARED,
 			  DRIVER_NAME " (pio)", host);
 	if (ret)
 		goto cmd_irq_free;
