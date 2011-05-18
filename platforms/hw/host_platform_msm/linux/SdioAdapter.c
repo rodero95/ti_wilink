@@ -44,6 +44,7 @@
 #include <linux/mmc/mmc.h>
 #include <linux/mmc/sd.h>
 #include <linux/delay.h>
+#include <linux/slab.h>
 
 #include "SdioDrvDbg.h"
 #include "TxnDefs.h"
@@ -90,7 +91,7 @@ int sdioAdapt_ConnectBus (void *        fCbFunc,
     /* Allocate a DMA-able buffer and provide it to the upper layer to be used for all read and write transactions */
     if (pDmaBufAddr == 0) /* allocate only once (in case this function is called multiple times) */
     {
-        pDmaBufAddr = kmalloc (MAX_BUS_TXN_SIZE, GFP_ATOMIC | GFP_DMA);
+        pDmaBufAddr = (char *) kmalloc (MAX_BUS_TXN_SIZE, GFP_ATOMIC | GFP_DMA);
         if (pDmaBufAddr == 0) { return -1; }
     }
     *pRxDmaBufAddr = *pTxDmaBufAddr = pDmaBufAddr;
