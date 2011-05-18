@@ -1,10 +1,8 @@
+*.a
 *.o
 *.o.cmd
 *.ko.cmd
 *.mod.c
-.tmp_versions
 modules.order
 Module.symvers
-platforms/os/common/build/
-platforms/os/linux/build/
-stad/build/linux/
+.tmp_versions/
